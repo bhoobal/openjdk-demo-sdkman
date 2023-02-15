@@ -7,14 +7,19 @@ pipeline {
                 echo 'Building..'
             }
         }
-        stage('Test') {
+        stage('sdkman') {
             steps {
-                echo 'Testing..'
+                script {
+                sh 'sdk install java 8.0.352-amzn'
+                sh 'sdk use java 8.0.352-amzn'
+                sh 'sdk current'
+                }
             }
         }
-        stage('Deploy') {
+        stage('gradle') {
             steps {
-                echo 'Deploying....'
+                echo 'gradle....'
+                sh './gradlew -v'
             }
         }
     }
