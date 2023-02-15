@@ -12,6 +12,7 @@ pipeline {
             steps {
                 script {
                     sh 'echo $SHELL'
+                    sh 'cat ~/.bash_profile'
                     sh 'sdk version'
                     sh 'sdk install java 8.0.352-amzn'
                     sh 'sdk use java 8.0.352-amzn'
