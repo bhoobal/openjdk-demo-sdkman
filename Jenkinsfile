@@ -12,8 +12,7 @@ pipeline {
             steps {
                 script {
                     sh 'echo $SHELL'
-                    sh 'curl -s https://get.sdkman.io | bash'
-                    sh 'source "/usr/local/sdkman/bin/sdkman-init.sh"'
+                    sh 'export SDKMAN_DIR="/usr/local/sdkman" && curl -s "https://get.sdkman.io" | bash'
                     sh 'sdk version'
                     sh 'sdk install java 8.0.352-amzn'
                     sh 'sdk use java 8.0.352-amzn'
