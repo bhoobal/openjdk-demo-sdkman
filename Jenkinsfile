@@ -5,6 +5,8 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
+                sh 'env | grep java'
+                sh 'echo $0'              
             }
         }
         stage('sdkman') {
