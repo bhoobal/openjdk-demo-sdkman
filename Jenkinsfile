@@ -5,18 +5,17 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-                script {
-                    sh 'env | grep java'
-                    sh 'echo $0'
-                }              
+         
             }
         }
         stage('sdkman') {
             steps {
                 script {
-                sh 'sdk install java 8.0.352-amzn'
-                sh 'sdk use java 8.0.352-amzn'
-                sh 'sdk current'
+                    sh 'curl -s "https://get.sdkman.io" | bash'
+                    sh 'sdk version'
+                    sh 'sdk install java 8.0.352-amzn'
+                    sh 'sdk use java 8.0.352-amzn'
+                    sh 'sdk current'
                 }
             }
         }
