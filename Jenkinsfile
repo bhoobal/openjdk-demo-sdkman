@@ -13,7 +13,7 @@ pipeline {
                 script {
                     sh 'curl -s "https://get.sdkman.io" | bash'
                     sh 'env'
-                    sh 'echo $0'
+                    sh 'echo $SHELL'
                     sh 'sdk version'
                     sh 'sdk install java 8.0.352-amzn'
                     sh 'sdk use java 8.0.352-amzn'
