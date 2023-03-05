@@ -1,0 +1,105 @@
+---
+- name: Playbook
+  hosts: localhost
+  vars:
+    sdkman_jdk_versions: ["8.0.362-amzn", "11.0.17-amzn", "17.0.6-amzn"]
+    sdkman_default_jdk_home: "~/.sdkman/candidates/java"
+
+  tasks:
+    - name: Find jdk versions and delete one not on the list
+      find:
+          paths: "{{ sdkman_default_jdk_home }}"
+          recurse: no
+          file_type: directory
+      register: jdk_candidates_directories
+
+    - name: Print jdk directories
+      set_fact:
+        installed_version: "{{ item.path | basename }}"
+#        msg: "Directories -- > {{ item.path | basename }}"
+      with_items: "{{ jdk_candidates_directories.files}}"
+
+#    - name: Delete directories
+#      file:
+#          path: "{{ sdkman_default_jdk_home }}/{{ item }}"
+#          state: absent
+#          when:
+#            - ( item.0 != item.1 and item.0 !="current")
+#      with_together:
+#            - "{{ installed_version }}"
+#            - "{{ sdkman_jdk_versions }}"
+
+
+#    - name: version to delete - directories
+#      block:
+#        - name: Check and remove versions
+#          debug:
+#            msg: "Path to delete : {{ sdkman_default_jdk_home }}/{{ item }}"
+#          when:
+#            - ( item.0 != item.1 and item.0 !="current")
+#          with_together:
+#            - "{{ installed_version }}"
+#            - "{{ sdkman_jdk_versions }}"
+##            -
+#        - name: Check and remove versions
+#          debug:
+#            msg: "version to remove  {{ item.0 }}"
+#          when:
+#            - ( item.0 != item.1 and item.0 !="current")
+#        with_together:
+#          - "{{ installed_version }}"
+#          - "{{ expected_versions }}"
+
+ #     with_items: "{{ jdk_candidates_directories | json_query('files[*].path') }}"
+
+# '/Users/bhoobalan.palanivel/.sdkman/candidates/java/11.0.17-amzn'
+
+# | basename
+#         msg: "Directories -- > {{ jdk_candidates_directories | json_query('files[*].path') }} "
+
+
+#      with_items: "{{ jdk_candidates_directories | json_query('files[*].path')}}"
+    - name: Delete directories
+  #      file:
+  #          path: "{{ sdkman_default_jdk_home }}/{{ item }}"
+  #          state: absent
+  #          when:
+  #            - ( item.0 != item.1 and item.0 !="current")
+  #      with_together:
+  #            - "{{ installed_version }}"
+  #            - "{{ sdkman_jdk_versions }}"
+
+
+    #          when:
+    #            - ( item != sdkman_default_jdk_home )
+    #            -
+    #          with_together:
+    #            - "{{ installed_version }}"
+    #            - "{{ sdkman_jdk_versions }}"
+
+    #      block:
+    #        -name: Check and remove versions
+    #
+    #
+    #          debug:
+    #            msg: "version to remove  {{ item.0 }}"
+    #          when:
+    #            - ( item.0 != item.1 and item.0 !="current")
+    #        with_together:
+    #          - "{{ installed_version }}"
+    #          - "{{ expected_versions }}"
+
+    #     with_items: "{{ jdk_candidates_directories | json_query('files[*].path') }}"
+
+  # '/Users/bhoobalan.palanivel/.sdkman/candidates/java/11.0.17-amzn'
+
+  # | basename
+  #         msg: "Directories -- > {{ jdk_candidates_directories | json_query('files[*].path') }} "
+        msg: "Directories to delete : {{ lookup( installed_version, sdkman_default_jdk_home , errors='warn') }}"
+
+#            {{ list1 | difference(list2) }}
+#
+#          when: ( item.0 != " {{ lookup (item.0, sdkman_jdk_versions ) }}" )
+#          with_together:
+#            - "{{ installed_version }}"
+#           - "{{ sdkman_jdk_versions }}"
