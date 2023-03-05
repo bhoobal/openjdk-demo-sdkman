@@ -1,3 +1,4 @@
-# Using sdkman packagemanager to install packages (jdk, gradle etc)
 
-## Ansible playbook roles and Shell commands 
+## Using sdkman packagemanager to install packages (jdk, gradle etc)
+
+### Ansible playbook roles and Shell commands 
